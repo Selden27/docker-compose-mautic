@@ -73,6 +73,7 @@ jobs:
         echo "Assign VPS IP..."
         IP="${{ vars.VPS_IP }}"
         echo "Adresse du VPS ip=$IP"
+        echo "ip=$IP" >> $GITHUB_ENV
   
     - name: Wait for server to be accessible
       run: |

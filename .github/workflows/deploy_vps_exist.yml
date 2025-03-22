@@ -112,6 +112,10 @@ jobs:
         EMAIL_ADDRESS: ${{ vars.EMAIL_ADDRESS }}
         DOMAIN: ${{ vars.DOMAIN }}
 
+    - name: Test SSH connection
+      run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no admin@${{ vars.VPS_IP }} "echo 'SSH connection successful'"
+
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
       with:

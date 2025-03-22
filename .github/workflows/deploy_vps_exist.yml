@@ -67,39 +67,15 @@ jobs:
           exit 1
         fi
 
-  #  - name: Install doctl
-  #    uses: digitalocean/action-doctl@v2
-  #    with:
-  #      token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-  #  - name: Create VPS if it doesn't exist
-  #    run: |
-  #      if ! doctl compute droplet list | grep -q 'mautic-vps'; then
-  #        doctl compute droplet create mautic-vps --image docker-20-04 --size s-1vcpu-1gb --region nyc1 --ssh-keys ${{ secrets.DIGITALOCEAN_SSH_FINGERPRINT }} --wait --user-data-file setup-vps.sh --enable-monitoring
-  #        echo "droplet_created=true" >> $GITHUB_ENV
-  #      else
-  #        echo "Droplet 'mautic-vps' already exists."
-  #        echo "droplet_created=true" >> $GITHUB_ENV
-  #      fi
-
     - name: Get VPS IP
-      #run: |
-      #  echo "Waiting for droplet to be ready..."
-      #  while : ; do
-      #    echo "."
-      #    sleep 2
-      #    STATUS=$(doctl compute droplet get mautic-vps --format Status --no-header)
-      #    if [ "$STATUS" = "active" ]; then
-      #      IP=$(doctl compute droplet get mautic-vps --format PublicIPv4 --no-header)
-      #      if [ -n "$IP" ]; then
-      #        echo "Droplet is active. IP address: $IP"
-      #        break
-      #      fi
-      #    fi
-      #  done
-        IP=${{ vars.VPS_IP }}
+      run: |
+        echo "Assign VPS IP..."
+           IP=${{ vars.VPS_IP }}
+           echo "Adresse du VPS ip=$IP"
+        done
+
         echo "ip=$IP" >> $GITHUB_ENV
-        echo "Adresse du VPS ip=$IP"
+
 
     - name: Wait for server to be accessible
       run: |

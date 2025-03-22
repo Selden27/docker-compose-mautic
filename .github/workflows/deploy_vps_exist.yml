@@ -46,7 +46,7 @@ jobs:
           exit 1
         fi
       env:
-        VPS_IP: ${{ vars.USER_DEPLOY }}
+        USER_DEPLOY: ${{ vars.USER_DEPLOY }}
 
     - name: Check required secrets
       env:

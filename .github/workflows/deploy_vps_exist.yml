@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: Webdock
+    env:
+      SSH_TIMEOUT: 600
 
     steps:
     - name: Checkout code

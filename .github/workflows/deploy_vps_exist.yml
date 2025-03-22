@@ -39,15 +39,6 @@ jobs:
       env:
         VPS_IP: ${{ vars.VPS_IP }}
 
-    - name: Check USER_DEPLOY environment variable
-      run: |
-        if [ -z "${USER_DEPLOY}" ]; then
-          echo "Error: Missing required environment variable: USER_DEPLOY"
-          exit 1
-        fi
-      env:
-        USER_DEPLOY: ${{ vars.USER_DEPLOY }}
-
     - name: Check required secrets
       env:
         MAUTIC_PASSWORD: ${{ secrets.MAUTIC_PASSWORD }}
@@ -128,13 +119,13 @@ jobs:
         ARGS: "-rlgoDzvc"
         SOURCE: "."
         REMOTE_HOST: ${{ env.ip }}
-        REMOTE_USER: ${{ vars.USER_DEPLOY }} # previously root
+        REMOTE_: admin # previously root
         TARGET: /var/www
         EXCLUDE: ".git"
         SCRIPT_BEFORE: |
           sudo apt update && sudo apt install -y rsync
-          sudo mkdir -p /var/www && sudo chown -R $USER:www-data /var/www
-        SCRIPT_AFTER: /var/www/setup-dc.sh > /home/$USER/setup-dc.log 2>&1
+          sudo mkdir -p /var/www && sudo chown -R admin:www-data /var/www
+        SCRIPT_AFTER: /var/www/setup-dc.sh > /home/admin/setup-dc.log 2>&1
 
     - name: Open your Mautic instance
       run: |
@@ -151,7 +142,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa $USER@${{ env.ip }}:/var/log/setup-dc.log ./setup-dc.log
+        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa admin@${{ env.ip }}:/var/log/setup-dc.log ./setup-dc.log
         rm -f ~/.ssh/id_rsa
       shell: bash
 

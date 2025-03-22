@@ -131,7 +131,7 @@ jobs:
         REMOTE_USER: ${{ vars.USER_DEPLOY }} # previously root
         TARGET: /var/www
         EXCLUDE: ".git"
-        SCRIPT_BEFORE: sudo mkdir -p /var/www && sudo chown -R $USER:$USER /var/www
+        SCRIPT_BEFORE: sudo mkdir -p /var/www && sudo chown -R $USER:www-data /var/www
         SCRIPT_AFTER: /var/www/setup-dc.sh > /var/log/setup-dc.log 2>&1
 
     - name: Open your Mautic instance

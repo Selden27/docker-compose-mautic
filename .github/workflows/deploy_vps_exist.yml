@@ -49,8 +49,6 @@ jobs:
 
     - name: Check required secrets
       env:
-       # DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-       # DIGITALOCEAN_SSH_FINGERPRINT: ${{ secrets.DIGITALOCEAN_SSH_FINGERPRINT }}
         MAUTIC_PASSWORD: ${{ secrets.MAUTIC_PASSWORD }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
@@ -61,8 +59,6 @@ jobs:
           fi
         }
 
-       # check_secret "DIGITALOCEAN_ACCESS_TOKEN"
-       # check_secret "DIGITALOCEAN_SSH_FINGERPRINT"
         check_secret "MAUTIC_PASSWORD"
         check_secret "SSH_PRIVATE_KEY"
 

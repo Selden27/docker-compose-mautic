@@ -111,7 +111,14 @@ jobs:
       env:
         EMAIL_ADDRESS: ${{ vars.EMAIL_ADDRESS }}
         DOMAIN: ${{ vars.DOMAIN }}
-
+    
+    - name: Debug SSH key presence
+      run: |
+      mkdir -p ~/.ssh
+      echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+      ls -la ~/.ssh
+  
     - name: Test SSH connection
       run: |
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no admin@${{ vars.VPS_IP }} "echo 'SSH connection successful'"

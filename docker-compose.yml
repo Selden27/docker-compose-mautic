@@ -24,7 +24,22 @@ services:
       retries: 10
     networks:
       - default
-
+      
+  mautic_init:
+    image: mysql:8.0
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "
+      echo 'Waiting for MySQL to be ready...';
+      until mysqladmin ping -h db --silent; do
+        echo 'MySQL not ready, waiting...';
+        sleep 2;
+      done;
+      echo 'MySQL ready!';
+    "
+    restart: "no"
+    
   mautic_web:
     build:
       context: .
@@ -46,8 +61,8 @@ services:
       timeout: 5s
       retries: 100
     depends_on:
-      db:
-        condition: service_healthy
+      mautic_init:
+        condition: service_completed_successfully
     networks:
       - default
 

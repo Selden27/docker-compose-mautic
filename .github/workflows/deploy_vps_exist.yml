@@ -137,6 +137,8 @@ jobs:
         EXCLUDE: ".git"
         SCRIPT_BEFORE: |
           export SSH_TIMEOUT=600
+          sudo usermod -aG docker $USER
+          sudo newgrp docker
           sudo apt update && sudo apt install -y rsync
           sudo mkdir -p /var/www && sudo chown -R admin:www-data /var/www
           sudo apt install -y dnsutils          

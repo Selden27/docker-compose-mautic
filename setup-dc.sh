@@ -81,7 +81,11 @@ fi
 echo "## Configuring Let's Encrypt for $DOMAIN..."
 
 # Use Certbot with the Nginx plugin to obtain and install a certificate
-certbot --nginx -d $DOMAIN --non-interactive --agree-tos -m {{EMAIL_ADDRESS}}
+#certbot --nginx -d $DOMAIN --non-interactive --agree-tos -m {{EMAIL_ADDRESS}}
+
+# Utiliser le serveur de staging au lieu de production
+certbot --nginx -d $DOMAIN --non-interactive --agree-tos --staging -m {{EMAIL_ADDRESS}}
+
 
 # Nginx will be reloaded automatically by Certbot after obtaining the certificate
 echo "## Let's Encrypt configured for $DOMAIN"

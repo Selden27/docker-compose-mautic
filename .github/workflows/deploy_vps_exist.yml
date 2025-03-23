@@ -136,9 +136,17 @@ jobs:
         TARGET: /var/www
         EXCLUDE: ".git"
         SCRIPT_BEFORE: |
+          export SSH_TIMEOUT=600
           sudo apt update && sudo apt install -y rsync
           sudo mkdir -p /var/www && sudo chown -R admin:www-data /var/www
-        SCRIPT_AFTER: /var/www/setup-dc.sh > /home/admin/setup-dc.log 2>&1
+        SCRIPT_AFTER: |
+          export SSH_TIMEOUT=600
+          /var/www/setup-dc.sh > /home/admin/setup-dc.log 2>&1
+          sudo chown www-data:www-data /var/www/mautic/config/local.php
+          sudo chmod 644 /var/www/mautic/config/local.php
+        env:
+          SSH_TIMEOUT: 600
+          SSH_CMD_ARGS: "-o ServerAliveInterval=120 -o ServerAliveCountMax=30"
 
     - name: Open your Mautic instance
       run: |

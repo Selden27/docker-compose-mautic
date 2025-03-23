@@ -164,7 +164,7 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa admin@${{ env.ip }}:/var/log/setup-dc.log ./setup-dc.log
+        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa admin@${{ env.ip }}:/home/admin/setup-dc.log ./setup-dc.log
         rm -f ~/.ssh/id_rsa
       shell: bash
 

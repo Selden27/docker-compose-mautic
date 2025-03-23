@@ -40,16 +40,16 @@ if [[ "$DOMAIN" == *"DOMAIN_NAME"* ]]; then
     exit 0
 fi
 
-DROPLET_IP=$(curl -s http://icanhazip.com)
+DROPLET_IP=$(curl -4 -s http://icanhazip.com)
 
-echo "## Checking if $DOMAIN points to this DO droplet..."
-DOMAIN_IP=$(dig +short $DOMAIN)
+echo "## Checking if $DOMAIN points to this DO Server..."
+DOMAIN_IP=$(dig +short -t A $DOMAIN)
 if [ "$DOMAIN_IP" != "$DROPLET_IP" ]; then
-    echo "## $DOMAIN does not point to this droplet IP ($DROPLET_IP). Exiting..."
+    echo "## $DOMAIN does not point to this Server IP ($DROPLET_IP). Exiting..."
     exit 1
 fi
 
-echo "## $DOMAIN is available and points to this droplet. Nginx configuration..."
+echo "## $DOMAIN is available and points to this server. Nginx configuration..."
 
 SOURCE_PATH="/var/www/nginx-virtual-host-$DOMAIN"
 TARGET_PATH="/etc/nginx/sites-enabled/nginx-virtual-host-$DOMAIN"

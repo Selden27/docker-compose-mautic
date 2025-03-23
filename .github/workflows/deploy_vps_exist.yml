@@ -139,6 +139,7 @@ jobs:
           export SSH_TIMEOUT=600
           sudo apt update && sudo apt install -y rsync
           sudo mkdir -p /var/www && sudo chown -R admin:www-data /var/www
+          sudo apt install -y dnsutils          
         SCRIPT_AFTER: |
           export SSH_TIMEOUT=600
           /var/www/setup-dc.sh > /home/admin/setup-dc.log 2>&1

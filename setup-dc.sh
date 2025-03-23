@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd /var/www
 docker compose build
 docker compose up -d db --wait && docker compose up -d mautic_web --wait

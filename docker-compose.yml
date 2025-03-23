@@ -30,14 +30,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: sh -c "
+    command: >
       echo 'Waiting for MySQL to be ready...';
       until mysqladmin ping -h db --silent; do
         echo 'MySQL not ready, waiting...';
         sleep 2;
       done;
       echo 'MySQL ready!';
-    "
     restart: "no"
     
   mautic_web:
